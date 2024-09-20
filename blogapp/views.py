@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse,HttpResponseNotFound
+from django.http import HttpResponse,HttpResponseNotFound,HttpResponseRedirect
+from django.urls import reverse
 
 # TEMP-DB
 blog_data={
@@ -16,5 +17,7 @@ def blog_display(request,blog):
         blog_content = blog_data[blog]
         return HttpResponse(blog_content)
     except:
-        return HttpResponseNotFound("The blog title you entered is not yet created so redirecting to the first blog")
+        redirect_path = reverse("blog-url",args=["blog1"])
+        print(redirect_path)
+        return HttpResponseRedirect(redirect_path)
         
